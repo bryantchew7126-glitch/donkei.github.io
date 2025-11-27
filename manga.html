@@ -255,89 +255,97 @@
       color: #e2c7ff;
     }
     @media (max-width: 700px) {
-      .container {
-        padding: 6px 2vw;
-        max-width: 99vw;
-      }
-      .navbar {
-        flex-direction: column;
-        gap: 9px 0;
-        padding-bottom: 13px;
-        box-shadow: 0 2px 12px #2222;
-      }
-      .navbar input[type="text"],
-      .navbar select,
-      .navbar button {
-        width: 99vw;
-        max-width: 99vw;
-        font-size: 19px;
-        padding: 12px 10px;
-        margin: 0 0 3px 0;
-      }
-      .add-section {
-        padding: 12px 4vw;
-        max-width: 99vw;
-        border-radius: 9px;
-        margin-bottom: 15px;
-      }
-      .add-fields {
-        flex-direction: column;
-        gap: 9px 0;
-      }
-      .input-group label {
-        font-size: 16px;
-        color: #dcbffe;
-        margin-bottom: 3px;
-      }
-      .input-group input,
-      .input-group select {
-        font-size: 17px;
-        padding: 12px 8px;
-        margin-bottom: 4px;
-      }
-      .add-btn {
-        font-size: 22px;
-        padding: 18px 10px;
-        border-radius: 11px;
-        margin-top: 15px;
-        letter-spacing: 1.5px;
-      }
-      .cards-container {
-        flex-direction: column;
-        gap: 14px 0;
-        align-items: stretch;
-        padding-top: 2px;
-      }
-      .card {
-        width: 97vw;
-        max-width: 99vw;
-        min-width: 98vw;
-        border-radius: 11px;
-        font-size: 18px;
-        padding: 20px 5vw 18px 6vw;
-        margin: 0 auto 8px auto;
-        box-shadow: 0 4px 16px #4444;
-      }
-      .card-title { font-size: 23px; margin-bottom: 13px;}
-      .card-info { font-size: 18px; margin-bottom: 8px;}
-      .card-actions button {
-        font-size: 18px;
-        padding: 10px 12px;
-        border-radius: 9px;
-      }
-      #modal-content {
-        padding: 34px 6vw 29px 6vw;
-        font-size: 20px;
-        border-radius: 16px;
-        min-width: unset;
-      }
-      #modal-content button {
-        font-size: 21px !important;
-        padding: 13px 15px !important;
-        border-radius: 9px !important;
-      }
-      #modal-content .close-btn { font-size: 34px;}
+    .container {
+      padding: 6px 2vw;
+      max-width: 99vw;
     }
+
+    /* NAVBAR: compact on mobile */
+    .navbar {
+      flex-direction: column;
+      gap: 6px 0;
+      padding: 6px 0 8px 0;
+      box-shadow: 0 2px 8px #2222;
+    }
+    .navbar input[type="text"],
+    .navbar select,
+    .navbar button {
+      width: 100%;
+      max-width: 100%;
+      font-size: 15px;
+      padding: 7px 9px;
+      margin: 0;
+    }
+
+    .add-section {
+      padding: 12px 4vw;
+      max-width: 99vw;
+      border-radius: 9px;
+      margin-bottom: 12px;
+    }
+    .add-fields {
+      flex-direction: column;
+      gap: 8px 0;
+    }
+    .input-group label {
+      font-size: 15px;
+      margin-bottom: 3px;
+    }
+    .input-group input,
+    .input-group select {
+      font-size: 16px;
+      padding: 10px 8px;
+      margin-bottom: 3px;
+    }
+    .add-btn {
+      font-size: 20px;
+      padding: 14px 10px;
+      border-radius: 11px;
+      margin-top: 12px;
+    }
+
+    .cards-container {
+      align-items: center;   /* center the cards */
+    }
+
+    .card {
+      width: 100%;
+      max-width: 320px;      /* same as bars above for a clean column */
+      border-radius: 11px;
+      font-size: 17px;
+      padding: 16px 16px 14px 16px;
+      margin: 0 auto 10px auto;
+      box-shadow: 0 4px 16px #4444;
+    }
+    .card-title { font-size: 21px; margin-bottom: 10px; }
+    .card-info { font-size: 17px; margin-bottom: 6px; }
+    .card-actions button {
+      font-size: 16px;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    #modal-content {
+      padding: 30px 6vw 25px 6vw;
+      font-size: 18px;
+      border-radius: 14px;
+    }
+    #modal-content button {
+      font-size: 18px !important;
+      padding: 11px 13px !important;
+      border-radius: 8px !important;
+    }
+    #modal-content .close-btn { font-size: 30px; }
+    /* Same max width for all navbar controls */
+    #searchInput,
+    #filterStatus,
+    #sortDropdown {
+      width: 100%;
+      max-width: 320px;   /* change this value if you want narrower/wider */
+      margin: 0 auto;     /* center each bar */
+      display: block;
+    }
+  }
 
   </style>
 </head>
@@ -351,10 +359,13 @@
     <option value="Completed">Completed</option>
     <option value="Dropped">Dropped</option>
   </select>
-  <button onclick="sortAlphabetical()">A–Z</button>
-  <button onclick="sortByChapters(true)">Chapters ↑</button>
-  <button onclick="sortByChapters(false)">Chapters ↓</button>
-  <button onclick="sortByLastUpdated()">Last Updated</button>
+  <select id="sortDropdown" onchange="sortManhwas()">
+    <option value="az">Sort: A–Z</option>
+    <option value="chaptersAsc">Sort: Chapters ↑</option>
+    <option value="chaptersDesc">Sort: Chapters ↓</option>
+    <option value="updated">Sort: Last Updated</option>
+  </select>
+
 </nav>
 <div class="container">
   <div class="add-section">
@@ -704,6 +715,21 @@ function sortByLastUpdated() {
   saveManhwas();
   renderList();
 }
+function sortManhwas() {
+  const val = document.getElementById('sortDropdown').value;
+  if (val === "az") {
+    manhwas.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (val === "chaptersAsc") {
+    manhwas.sort((a, b) => a.chapters - b.chapters);
+  } else if (val === "chaptersDesc") {
+    manhwas.sort((a, b) => b.chapters - a.chapters);
+  } else if (val === "updated") {
+    manhwas.sort((a, b) => (b.lastUpdated || 0) - (a.lastUpdated || 0));
+  }
+  saveManhwas();
+  renderList();
+}
+
 function showModal(item) {
   const modal = document.getElementById('modal');
   const content = document.getElementById('modal-content');
