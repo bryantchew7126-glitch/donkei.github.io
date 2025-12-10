@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Manhwa</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: linear-gradient(135deg, #ff0066, #6600ff);
+      padding: 18px 0 14px 0;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      margin-bottom: 0;
+    }
+    .container {
+      flex: 1;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px 12px 32px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    h2 {
+      margin: 0 0 16px 0;
+      color: #ffb6ff;
+      text-align: center;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 14px;
+    }
+    .input-group label {
+      margin-bottom: 4px;
+      font-size: 15px;
+      color: #cecefd;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .input-group input,
+    .input-group select {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      background: #24244a;
+      color: #fff;
+    }
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: 2px solid #7c34f6;
+      background: #28285a;
+    }
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #ff0066 36%, #6600ff 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-top: 8px;
+      box-shadow: 0 3px 14px #6600ff28;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.09s;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background: linear-gradient(90deg, #ff3385 20%, #8466ff 100%);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 18px #6600ff3a;
+    }
+    .btn-secondary {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: #252545;
+      color: #fff;
+      border-radius: 9px;
+      border: 1px solid #5552;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn-secondary:hover {
+      background: #30305a;
+    }
+  </style>
+</head>
+<body>
+<header>Add New Manhwa</header>
+<div class="container">
+  <h2>Manhwa Details</h2>
+
+  <div class="input-group">
+    <label for="newTitle">Title</label>
+    <input type="text" id="newTitle" placeholder="Enter manhwa title" autocomplete="off" />
+  </div>
+
+  <div class="input-group">
+    <label for="newChapters">Chapters</label>
+    <input type="number" id="newChapters" placeholder="e.g. 85" min="0" />
+  </div>
+
+  <div class="input-group">
+    <label for="newStatus">Status</label>
+    <select id="newStatus">
+      <option value="Reading">Reading</option>
+      <option value="Completed">Completed</option>
+      <option value="Dropped">Dropped</option>
+    </select>
+  </div>
+
+  <button class="btn-primary" onclick="saveAndGoBack()">Save to Library</button>
+  <button class="btn-secondary" onclick="goBack()">Back to Library</button>
+</div>
+
+<script>
+  function loadManhwas() {
+    try {
+      const raw = localStorage.getItem('manhwas');
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+  function saveManhwas(list) {
+    localStorage.setItem('manhwas', JSON.stringify(list));
+  }
+
+  function saveAndGoBack() {
+    const titleEl = document.getElementById('newTitle');
+    const chaptersEl = document.getElementById('newChapters');
+    const statusEl = document.getElementById('newStatus');
+
+    const title = titleEl.value.trim();
+    const chapters = parseInt(chaptersEl.value) || 0;
+    const status = statusEl.value;
+
+    if (!title) {
+      alert('Please enter a title.');
+      titleEl.focus();
+      return;
+    }
+
+    const manhwas = loadManhwas();
+    const now = Date.now();
+    const existing = manhwas.find(item => item.title.trim().toLowerCase() === title.toLowerCase());
+
+    if (existing) {
+      existing.chapters = chapters;
+      existing.status = status;
+      existing.lastUpdated = now;
+      alert('Existing manhwa found. Updated chapters and status.');
+    } else {
+      manhwas.push({ title, chapters, status, lastUpdated: now });
+      alert('Manhwa added to library.');
+    }
+
+    saveManhwas(manhwas);
+    window.location.href = 'manga.html';
+  }
+
+  function goBack() {
+    window.location.href = 'manga.html';
+  }
+</script>
+</body>
+</html>

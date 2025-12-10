@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Manhwa Search</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: black;
+      background-image: url("IMAGE/JJ background.jpeg");
+      background-repeat: no-repeat;
+      background-position: center 200px;
+      background-size: 75%;          /* fill screen on PC */
+      color: #fff;
+      min-height: 700px;
+      display: flex;
+                                        /* vertical center */
+      justify-content: center;         /* horizontal center */
+    }
+
+    .center-box {
+      width: 100%;
+      max-width: 520px;
+      padding: 0 18px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 50px;
+      color: #f10e19;
+    }
+
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .logo-letter {
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      background-color: orange;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex: 1;
+    }
+    input[type="text"] {
+      flex: 1;
+      max-width: 400px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      font-size: 24px;
+      background: #1b1a3a;
+      color: #fff;
+    }
+    input[type="text"]:focus {
+      box-shadow: 0 0 0 2px #7c34f6;
+      background: #222152;
+    }
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 10px 18px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff0066, #6600ff);
+      color: #fff;
+      white-space: nowrap;
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+
+    /* Mobile tweaks: same image, better fit */
+    @media (max-width: 480px) {
+      body {
+        min-height: 100vh;
+        background-image: url("IMAGE/phone\ BG.jpeg");
+        background-position: center center; /* center on phone */
+        background-size: 70%;            /* still fill screen */
+      }
+      .search-row {
+        flex-direction: column;
+      }
+      form {
+        width: 100%;
+      }
+      button {
+        width: 100%;
+      }
+      h1 {
+        font-size: 32px;
+      }
+      input[type="text"] {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="center-box">
+    <h1>My Manhwa Library</h1>
+
+    <div class="search-row">
+      <!-- circular logo linking to main library -->
+      <a href="manga.html" class="logo-link" title="Open full library">
+        <img src="IMAGE/library-logo-design-vector-templet_1070930-245.avif" class="logo-letter" alt="Library logo">
+      </a>
+
+      <form onsubmit="goToLibrary(event)">
+        <input
+          type="text"
+          id="homeSearch"
+          placeholder="Search manhwa title..."
+          autocomplete="off"
+        />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function goToLibrary(e) {
+      e.preventDefault();
+      const q = document.getElementById('homeSearch').value.trim();
+      const url = q ? `library.html?search=${encodeURIComponent(q)}` : 'library.html';
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
