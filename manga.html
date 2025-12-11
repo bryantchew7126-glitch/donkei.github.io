@@ -22,7 +22,15 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       margin-bottom: 0;
     }
-
+    header a.header-link {
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+      width: 100%;
+    }
+    header a.header-link:hover {
+      cursor: pointer;
+    }
     /* NAVBAR: search + sort + link to add page */
     .navbar {
       display: flex;
@@ -245,7 +253,10 @@
   </style>
 </head>
 <body>
-<header>My Manhwa Library</header>
+<header>
+  <a href="home page.html" class="header-link">My Manhwa Library</a>
+</header>
+
 
 <nav class="navbar">
   <input
