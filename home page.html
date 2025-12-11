@@ -140,9 +140,10 @@
     function goToLibrary(e) {
       e.preventDefault();
       const q = document.getElementById('homeSearch').value.trim();
-      const url = q ? `library.html?search=${encodeURIComponent(q)}` : 'library.html';
+      const url = q ? `library.html?search=${encodeURIComponent(q)}` : 'manga.html';
       window.location.href = url;
     }
   </script>
 </body>
 </html>
+
