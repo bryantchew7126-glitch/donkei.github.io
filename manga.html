@@ -8,7 +8,6 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      /* match home page: dark gradient */
       background: radial-gradient(circle at top, #1a1a2f 0%, #05040a 55%, #000 100%);
       color: #fff;
     }
@@ -36,20 +35,38 @@
       filter: brightness(1.05);
     }
 
-    /* NAVBAR: search + sort + link to add page */
+    /* NAVBAR */
     .navbar {
       display: flex;
       align-items: center;
-      gap: 10px;
       justify-content: center;
-      background: rgba(12, 12, 28, 0.95);
-      padding: 10px 10px;
-      border-bottom: 1.5px solid rgba(123, 61, 255, 0.6);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.75);
-      backdrop-filter: blur(6px);
+      gap: 4px;          /* make this small so items are close */
+      padding: 6px 10px;
     }
+
+    /* wrapper so suggestions can be positioned under input */
+    .nav-search-wrapper {
+      position: relative;
+      flex: 0 1 260px;
+      max-width: 280px;
+      margin: 0;         /* remove auto; it was pushing things apart */
+    }
+
     .navbar select,
-    .navbar input[type="search"],
+    /* input: left-aligned text */
+    .navbar input[type="search"] {
+      font-size: 15px;
+      border-radius: 999px;
+      background: #14132b;
+      color: #fff;
+      padding: 8px 14px;
+      outline: none;
+      border: 1px solid #313064;
+      transition: box-shadow 0.15s, background 0.15s, transform 0.1s, border-color 0.15s;
+      text-decoration: none;
+      text-align: left;     /* ensure text is not centered */
+      display: inline-block;
+    }
     .navbar .nav-add-link {
       font-size: 15px;
       border-radius: 999px;
@@ -60,9 +77,10 @@
       border: 1px solid #313064;
       transition: box-shadow 0.15s, background 0.15s, transform 0.1s, border-color 0.15s;
       text-decoration: none;
-      text-align: center;
+      text-align: center;   /* keep centered for select + button */
       display: inline-block;
     }
+
     .navbar input[type="search"]::placeholder {
       color: #9a9ac4;
     }
@@ -73,12 +91,9 @@
       border-color: #7c34f6;
       transform: translateY(-1px);
     }
+
     .nav-add-link {
-      cursor: pointer;
-      background: linear-gradient(135deg, #ff4b7d, #7b3dff);
-      font-weight: 500;
-      white-space: nowrap;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.7);
+      padding: 8px 12px;     /* slightly smaller button */
     }
     .nav-add-link:hover {
       filter: brightness(1.06);
@@ -86,11 +101,40 @@
     }
 
     .nav-search {
-      flex: 1;
-      min-width: 160px;
+      width: 100%;                /* fill the wrapper */
     }
     .nav-sort {
-      width: 170px;
+      width: 150px;          /* was 170px – narrower sort dropdown */
+    }
+
+    /* suggestions dropdown under search */
+    .suggestions-box {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      margin-top: 4px;
+      background: #14132b;
+      border-radius: 10px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.8);
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 1500;
+      display: none;
+    }
+
+    .suggestion-item {
+      padding: 8px 12px;
+      font-size: 14px;
+      color: #e4e4ff;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+    .suggestion-item:hover {
+      background: #201f46;
     }
 
     /* Main container */
@@ -109,7 +153,7 @@
       padding-top: 8px;
     }
 
-    /* Individual card */
+    /* Card */
     .card {
       background: radial-gradient(circle at top left, #252545 0%, #15151f 55%, #101018 100%);
       border-radius: 16px;
@@ -133,7 +177,6 @@
       transform: translateY(-3px);
     }
 
-    /* Card text */
     .card-title {
       font-size: 19px;
       font-weight: bold;
@@ -147,7 +190,6 @@
       color: #d3d3f3;
     }
 
-    /* Actions row */
     .card-actions {
       width: 100%;
       display: flex;
@@ -156,7 +198,6 @@
     }
     .card-actions button { pointer-events: all; }
 
-    /* Status button */
     .status-btn {
       border: none;
       padding: 5px 10px;
@@ -177,7 +218,6 @@
     .status-reading   { background: #ff9a3c !important; }
     .status-dropped   { background: #ff4b4b !important; }
 
-    /* Edit / Remove buttons */
     .edit-btn {
       background: #14b86b;
       border: none;
@@ -265,71 +305,118 @@
       color: #ffe0ff;
     }
 
-    /* Responsive */
     @media (max-width: 700px) {
-      .navbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .nav-search,
-      .nav-sort,
-      .nav-add-link {
-        width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
-      }
-      .container {
-        padding: 10px 2vw 20px 2vw;
-        max-width: 99vw;
-      }
-      .cards-container {
-        align-items: center;
-      }
-      .card {
-        width: 100%;
-        max-width: 340px;
-        border-radius: 14px;
-        font-size: 17px;
-        padding: 16px 16px 14px 16px;
-        margin: 0 auto 10px auto;
-        box-shadow: 0 10px 26px rgba(0,0,0,0.9);
-      }
-      .card-title { font-size: 20px; margin-bottom: 8px; }
-      .card-info  { font-size: 15px; margin-bottom: 5px; }
-      .card-actions button {
-        font-size: 15px;
-        padding: 8px 10px;
-        border-radius: 8px;
-      }
-      #modal-content {
-        padding: 26px 6vw 22px 6vw;
-        font-size: 17px;
-        border-radius: 15px;
-      }
-      #modal-content button {
-        font-size: 16px !important;
-        padding: 9px 12px !important;
-        border-radius: 8px !important;
-      }
-      #modal-content .close-btn { font-size: 30px; }
+    /* navbar: stacked cards */
+    .navbar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      padding: 8px 10px 10px 10px;
+      background: transparent;          /* let inner cards stand out */
+      border-bottom: none;
+      box-shadow: none;
     }
-  </style>
+
+    /* wrap whole control group */
+    .nav-search-wrapper,
+    .nav-sort,
+    .nav-add-link {
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    /* search pill */
+    .nav-search {
+      width: 100%;
+      font-size: 16px;
+      padding: 10px 16px;
+    }
+
+    /* sort as full-width pill */
+    .nav-sort {
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 16px;
+    }
+
+    /* add button full-width pill */
+    .nav-add-link {
+      display: block;
+      text-align: center;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 16px;
+    }
+
+    /* suggestions box aligned to full-width search */
+    .suggestions-box {
+      max-width: 360px;
+      margin: 4px auto 0 auto;
+    }
+
+    .container {
+      padding: 10px 10px 20px 10px;
+      max-width: 100vw;
+    }
+
+    .cards-container {
+      align-items: center;
+    }
+    .card {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 18px;
+      font-size: 17px;
+      padding: 16px 16px 14px 16px;
+      margin: 0 auto 12px auto;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.9);
+    }
+    .card-title { font-size: 20px; margin-bottom: 8px; }
+    .card-info  { font-size: 15px; margin-bottom: 5px; }
+    .card-actions button {
+      font-size: 15px;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    #modal-content {
+      padding: 26px 6vw 22px 6vw;
+      font-size: 17px;
+      border-radius: 15px;
+    }
+    #modal-content button {
+      font-size: 16px !important;
+      padding: 9px 12px !important;
+      border-radius: 8px !important;
+    }
+    #modal-content .close-btn { font-size: 30px; }
+  }
+
+</style>
 </head>
 <body>
 <header>
   <a href="home page.html" class="header-link">My Manhwa Library</a>
 </header>
 
-
 <nav class="navbar">
-  <input
-    type="search"
-    id="searchInput"
-    class="nav-search"
-    placeholder="Search or filter manhwa..."
-    oninput="searchManhwa()"
-  />
-  <!-- single inline handler: no extra listeners in JS -->
+  <div class="nav-search-wrapper">
+    <input
+      type="search"
+      id="searchInput"
+      class="nav-search"
+      placeholder="Search or filter manhwa..."
+      oninput="searchManhwa(); showSuggestions();"
+      autocomplete="off"
+    />
+    <div id="searchSuggestions" class="suggestions-box"></div>
+  </div>
+  
+  <select id="mobileTitleDropdown" class="nav-sort" onchange="filterByDropdown()" style="display:none;">
+    <option value="">Filter by title...</option>
+  </select>
+
   <select id="sortDropdown" class="nav-sort" onchange="sortManhwas()">
     <option value="az">Sort: A–Z</option>
     <option value="chaptersAsc">Sort: Chapters ↑</option>
@@ -525,7 +612,6 @@
     {title:"Steel emperor", chapters:91, status:"Reading"}
   ];
 
-  // Ensure lastUpdated exists for all items
   manhwas.forEach(m => {
     if (!m.lastUpdated) m.lastUpdated = Date.now();
   });
@@ -534,12 +620,14 @@
   function saveManhwas() {
     localStorage.setItem('manhwas', JSON.stringify(manhwas));
   }
+
   function getStatusClass(status) {
     if (status === 'Completed') return 'status-completed';
     if (status === 'Reading')   return 'status-reading';
     if (status === 'Dropped')   return 'status-dropped';
     return '';
   }
+
   function renderList() {
     const container = document.getElementById('manhwaCards');
     container.innerHTML = '';
@@ -604,12 +692,14 @@
     saveManhwas();
     renderList();
   }
+
   function editManhwa(index) {
     manhwas[index]._editing = true;
     renderList();
     const el = document.getElementById(`editChapters${index}`);
     if (el) el.focus();
   }
+
   function saveEdit(index) {
     const chaptersInput = document.getElementById(`editChapters${index}`);
     const statusSelect  = document.getElementById(`editStatus${index}`);
@@ -623,10 +713,12 @@
     saveManhwas();
     renderList();
   }
+
   function cancelEdit(index) {
     delete manhwas[index]._editing;
     renderList();
   }
+
   function removeManhwa(index) {
     const confirmDelete = confirm(`Are you sure you want to remove "${manhwas[index].title}" from your library?`);
     if (!confirmDelete) return;
@@ -634,8 +726,14 @@
     saveManhwas();
     renderList();
   }
+
   function searchManhwa() {
     renderList();
+    const input = document.getElementById('searchInput');
+    const box = document.getElementById('searchSuggestions');
+    if (input && box && !input.value.trim()) {
+      box.style.display = 'none';
+    }
   }
 
   function sortManhwas() {
@@ -650,7 +748,7 @@
       manhwas.sort((a, b) => {
         const la = a.lastUpdated || 0;
         const lb = b.lastUpdated || 0;
-        return lb - la; // newest first
+        return lb - la;
       });
     }
     saveManhwas();
@@ -674,25 +772,93 @@
     modal.classList.add('show');
     modal.style.display = 'flex';
   }
+
   function closeModal() {
     const modal = document.getElementById('modal');
     modal.classList.remove('show');
     setTimeout(()=>{ modal.style.display='none'; }, 175);
   }
+
   window.onclick = function(event) {
     const modal = document.getElementById('modal');
     if (event.target == modal) closeModal();
   };
+
   function editThisFromModal(title) {
     const index = manhwas.findIndex(item=>item.title===title);
     if(index !== -1) editManhwa(index);
   }
+
   function removeThisFromModal(title) {
     const index = manhwas.findIndex(item=>item.title===title);
     if(index !== -1) removeManhwa(index);
   }
 
-  renderList();
+  // Autocomplete suggestions under search
+  function showSuggestions() {
+    const input = document.getElementById('searchInput');
+    const box = document.getElementById('searchSuggestions');
+    if (!input || !box) return;
+
+    const query = input.value.trim().toLowerCase();
+    box.innerHTML = '';
+
+    if (!query) {
+      box.style.display = 'none';
+      return;
+    }
+
+    const seen = new Set();
+    const matches = [];
+    for (const m of manhwas) {
+      const titleLower = m.title.toLowerCase();
+      if (titleLower.includes(query) && !seen.has(titleLower)) {
+        seen.add(titleLower);
+        matches.push(m.title);
+        if (matches.length >= 8) break;
+      }
+    }
+
+    if (matches.length === 0) {
+      box.style.display = 'none';
+      return;
+    }
+
+    matches.forEach(title => {
+      const div = document.createElement('div');
+      div.className = 'suggestion-item';
+      div.textContent = title;
+      div.onclick = () => {
+        input.value = title;
+        box.style.display = 'none';
+        renderList();
+      };
+      box.appendChild(div);
+    });
+
+    box.style.display = 'block';
+  }
+
+  // close suggestions when clicking outside
+  document.addEventListener('click', (e) => {
+    const box = document.getElementById('searchSuggestions');
+    const input = document.getElementById('searchInput');
+    if (!box || !input) return;
+    if (!box.contains(e.target) && e.target !== input) {
+      box.style.display = 'none';
+    }
+  });
+
+  // Read ?search= from URL and init
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const initialSearch = params.get('search') || '';
+    const input = document.getElementById('searchInput');
+    if (initialSearch && input) {
+      input.value = initialSearch;
+    }
+    renderList();
+  })();
 </script>
 </body>
 </html>
