@@ -12,41 +12,34 @@
     }
     body {
       font-family: Arial, Helvetica, sans-serif;
-      /* subtle dark gradient instead of flat black */
       background: radial-gradient(circle at top, #1a1a2f 0%, #05040a 55%, #000 100%);
       color: #fff;
     }
 
-    /* Two-row grid: top = content, bottom = image area */
-    .page-grid {
-      min-height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .top-content {
+    /* Top content (title + search) */
+    .top-panel {
+      padding: 40px 16px 24px 16px;
       display: flex;
       justify-content: center;
-      padding-top: 40px;
     }
 
     .center-box {
       width: 100%;
       max-width: 520px;
-      padding: 0 18px 26px 18px;
+      padding: 18px 18px 22px 18px;
       text-align: center;
-      /* soft card feel */
-      background: rgba(7, 7, 20, 0.9);
+      background: rgba(8, 8, 22, 0.75);
       border-radius: 18px;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(4px);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,0.9),
+        0 0 0 1px rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
     }
 
     h1 {
       font-size: 44px;
       color: #ff4b7d;
-      margin: 4px 0 20px 0;
+      margin: 4px 0 14px 0;
       letter-spacing: 1px;
     }
 
@@ -55,7 +48,13 @@
       align-items: center;
       gap: 10px;
       justify-content: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+    }
+
+    /* wrapper so suggestions can be positioned under input */
+    .home-search-wrapper {
+      position: relative;
+      flex: 1;
     }
 
     form {
@@ -66,20 +65,21 @@
     }
 
     input[type="text"] {
-      flex: 1;
+      flex: 1 ;
       max-width: 400px;
+      width: 90%;
       padding: 11px 14px;
       border-radius: 999px;
-      border: 1px solid #2f2f70;
+      border: 1px solid #313064;
       outline: none;
       font-size: 18px;
       background: #14132b;
       color: #fff;
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.5);
       transition: box-shadow 0.18s, background 0.18s, transform 0.12s;
     }
     input[type="text"]::placeholder {
-      color: #8f8fb4;
+      color: #8f8fb8;
     }
     input[type="text"]:focus {
       box-shadow: 0 0 0 2px #7c34f6;
@@ -97,132 +97,221 @@
       background: linear-gradient(135deg, #ff4b7d, #7b3dff);
       color: #fff;
       white-space: nowrap;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.7);
       transition: transform 0.12s, box-shadow 0.12s, filter 0.12s;
     }
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.8);
       filter: brightness(1.06);
     }
     button:active {
       transform: translateY(0);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.7);
     }
 
-    /* "To Library" button container */
     .to-library-wrap {
-      margin-top: 10px;
+      margin-top: 8px;
       text-align: center;
     }
-
     .to-library-wrap button {
       padding: 10px 26px;
       font-size: 15px;
+      width: 100%;
     }
 
-    /* Image row that always stays below the content */
-    .image-row {
-      margin-top: 40px; /* tuned gap below content */
-      background-image: url("IMAGE/JJ background.jpeg");
+    /* suggestions dropdown under search */
+    .home-suggestions-box {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      margin-top: 4px;
+      background: #14132b;
+      border-radius: 10px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.8);
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 1500;
+      display: none;
+    }
+
+    .home-suggestion-item {
+      padding: 8px 12px;
+      font-size: 14px;
+      color: #e4e4ff;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .home-suggestion-item:last-child {
+      border-bottom: none;
+    }
+    .home-suggestion-item:hover {
+      background: #201f46;
+    }
+
+    /* Image area BELOW the search bar */
+    .image-panel {
+      height: 80vh;
+      background-image:
+        linear-gradient(to bottom, rgba(5, 4, 10, 1) 0%, rgba(5, 4, 10, 0) 35%),
+        url("IMAGE/JJ background.jpeg");
       background-repeat: no-repeat;
-      background-position: center top;
-      background-size: 70%;
-      opacity: 0.9;
+      background-position: center;
+      background-size: cover;
+      opacity: 0.95;
     }
 
-    /* Mobile tweaks */
+    /* Mobile */
     @media (max-width: 480px) {
-      .top-content {
-        padding-top: 24px;
+      .top-panel {
+        padding: 24px 12px 20px 12px;
       }
-
       .center-box {
-        margin: 0 10px;
-        padding: 16px 14px 22px 14px;
+        padding: 16px 14px 20px 14px;
         border-radius: 16px;
       }
-
       h1 {
         font-size: 30px;
         margin-bottom: 10px;
       }
-
-      .subtitle {
-        font-size: 13px;
-        margin-bottom: 18px;
-      }
-
       .search-row {
         flex-direction: column;
         gap: 8px;
         align-items: stretch;
       }
-
       form {
         width: 100%;
       }
-
       input[type="text"] {
         font-size: 16px;
       }
-
       button {
         width: 100%;
       }
-
-      .to-library-wrap button {
-        width: 100%;
-      }
-
-      .image-row {
-        margin-top: 50px;
-        background-image: url("IMAGE/phone BG.jpeg");
-        background-size: 75%;
-        background-position: center top;
+      .image-panel {
+        height: 70vh;
+        background-image:
+          linear-gradient(to bottom, rgba(5, 4, 10, 1) 0%, rgba(5, 4, 10, 0) 35%),
+          url("IMAGE/phone BG.jpeg");
+        background-position: center;
+        background-size: cover;
       }
     }
   </style>
 </head>
 <body>
-  <div class="page-grid">
-    <!-- Top content: title + search + button -->
-    <div class="top-content">
-      <div class="center-box">
-        <h1>My Manhwa Library</h1>
+  <!-- Top: title + search -->
+  <div class="top-panel">
+    <div class="center-box">
+      <h1>My Manhwa Library</h1>
 
-        <div class="search-row">
-          <form onsubmit="goToLibrary(event)">
+      <div class="search-row">
+        <form onsubmit="goToLibrary(event)">
+          <div class="home-search-wrapper">
             <input
               type="text"
               id="homeSearch"
               placeholder="Search manhwa title..."
               autocomplete="off"
+              oninput="showHomeSuggestions()"
             />
-            <button type="submit">Search</button>
-          </form>
-        </div>
+            <div id="homeSuggestions" class="home-suggestions-box"></div>
+          </div>
+          <button type="submit">Search</button>
+        </form>
+      </div>
 
-        <div class="to-library-wrap">
-          <button type="button" onclick="window.location.href='manga.html'">
-            To Library
-          </button>
-        </div>
+      <div class="to-library-wrap">
+        <button type="button" onclick="window.location.href='manga.html'">
+          To Library
+        </button>
       </div>
     </div>
-
-    <!-- Bottom row: background image area -->
-    <div class="image-row"></div>
   </div>
 
+  <!-- Below: background image -->
+  <div class="image-panel"></div>
+
   <script>
+    // same base data as manga.html (short version; you can paste full array if you like)
+    const homeManhwas = JSON.parse(localStorage.getItem('manhwas')) || [
+      {title:"Solo leveling"},
+      {title:"Max-level newbie"},
+      {title:"Frenzy evolution"},
+      {title:"Super evolution"},
+      {title:"The beginning after the end"},
+      {title:"Player who can't level up"},
+      {title:"Archmage returns after 4000 years"},
+      {title:"Taming master"},
+      {title:"Nano machine"},
+      {title:"The game that I came from"}
+      // ... or paste your full list here so suggestions match the library
+    ];
+
     function goToLibrary(e) {
       e.preventDefault();
       const q = document.getElementById('homeSearch').value.trim();
-      const url = q ? `library.html?search=${encodeURIComponent(q)}` : 'manga.html';
+      const url = q
+        ? `manga.html?search=${encodeURIComponent(q)}`
+        : 'manga.html';
       window.location.href = url;
     }
+
+    function showHomeSuggestions() {
+      const input = document.getElementById('homeSearch');
+      const box = document.getElementById('homeSuggestions');
+      if (!input || !box) return;
+
+      const query = input.value.trim().toLowerCase();
+      box.innerHTML = '';
+
+      if (!query) {
+        box.style.display = 'none';
+        return;
+      }
+
+      const seen = new Set();
+      const matches = [];
+      for (const m of homeManhwas) {
+        const titleLower = m.title.toLowerCase();
+        if (titleLower.includes(query) && !seen.has(titleLower)) {
+          seen.add(titleLower);
+          matches.push(m.title);
+          if (matches.length >= 8) break;
+        }
+      }
+
+      if (matches.length === 0) {
+        box.style.display = 'none';
+        return;
+      }
+
+      matches.forEach(title => {
+        const div = document.createElement('div');
+        div.className = 'home-suggestion-item';
+        div.textContent = title;
+        div.onclick = () => {
+          input.value = title;
+          box.style.display = 'none';
+          // optional: go directly to library with that search
+          goToLibrary(new Event('submit'));
+        };
+        box.appendChild(div);
+      });
+
+      box.style.display = 'block';
+    }
+
+    // close suggestions when clicking outside
+    document.addEventListener('click', (e) => {
+      const box = document.getElementById('homeSuggestions');
+      const input = document.getElementById('homeSearch');
+      if (!box || !input) return;
+      if (!box.contains(e.target) && e.target !== input) {
+        box.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
-
