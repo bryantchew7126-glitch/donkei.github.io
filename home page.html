@@ -1,423 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manhwa Library — Home</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manhwa Library — Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            background-color: #0a0a0f;
-            color: #ffffff;
-            overflow-x: hidden;
-            position: relative;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background-color: #0a0a0f;
+      color: #ffffff;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        /* Full-screen background with gradient overlay */
-        .bg-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background-image: 
-                linear-gradient(135deg, rgba(10, 10, 15, 0.85) 0%, rgba(10, 10, 15, 0.5) 50%, rgba(10, 10, 15, 0.85) 100%),
-                url("IMAGE/JJ background.jpeg");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        }
+    .bg-wrapper {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      background-image: 
+        linear-gradient(135deg, rgba(10, 10, 15, 0.85) 0%, rgba(10, 10, 15, 0.5) 50%, rgba(10, 10, 15, 0.85) 100%),
+        url("IMAGE/JJ background.jpeg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
 
-        /* Animated gradient overlay */
-        .bg-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 75, 125, 0.12) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(123, 61, 255, 0.12) 0%, transparent 50%);
-            animation: pulseGlow 8s ease-in-out infinite;
-        }
+    .bg-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 75, 125, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(123, 61, 255, 0.12) 0%, transparent 50%);
+      animation: pulseGlow 8s ease-in-out infinite;
+    }
 
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.7; }
-        }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.7; }
+    }
 
-        /* Content container */
-        .container {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
+    .container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
 
-        /* Hero section */
-        .hero {
-            text-align: center;
-            max-width: 700px;
-            width: 100%;
-        }
+    .hero {
+      text-align: center;
+      max-width: 700px;
+      width: 100%;
+    }
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
-            border-radius: 24px;
-            background: linear-gradient(135deg, #ff4b7d 0%, #7b3dff 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            box-shadow: 
-                0 8px 32px rgba(255, 75, 125, 0.4),
-                0 0 80px rgba(123, 61, 255, 0.3);
-            animation: float 3s ease-in-out infinite;
-        }
+    .logo {
+      width: 80px; height: 80px;
+      margin: 0 auto 24px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #ff4b7d 0%, #7b3dff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      box-shadow: 
+        0 8px 32px rgba(255, 75, 125, 0.4),
+        0 0 80px rgba(123, 61, 255, 0.3);
+      animation: float 3s ease-in-out infinite;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
 
-        h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 56px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-        }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
 
-        .subtitle {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 40px;
-            font-weight: 400;
-        }
+    .subtitle {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
 
-        /* Search box */
-        .search-container {
-            position: relative;
-            max-width: 560px;
-            margin: 0 auto 32px;
-        }
+    .search-container {
+      position: relative;
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
 
-        .search-box {
-            position: relative;
-            background: rgba(20, 20, 30, 0.7);
-            border-radius: 16px;
-            padding: 8px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
+    .search-box {
+      position: relative;
+      background: rgba(20, 20, 30, 0.7);
+      border-radius: 16px;
+      padding: 8px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
 
-        .search-input {
-            width: 100%;
-            padding: 16px 20px;
-            font-size: 16px;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-        }
+    .search-input {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 16px;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
 
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
+    .search-input::placeholder { color: rgba(255, 255, 255, 0.4); }
 
-        .search-btn {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            padding: 10px 24px;
-            background: linear-gradient(135deg, #ff4b7d 0%, #7b3dff 100%);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 16px rgba(255, 75, 125, 0.3);
-        }
+    .search-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px 24px;
+      background: linear-gradient(135deg, #ff4b7d 0%, #7b3dff 100%);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(255, 75, 125, 0.3);
+    }
 
-        .search-btn:hover {
-            transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 6px 24px rgba(255, 75, 125, 0.5);
-        }
+    .search-btn:hover {
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 6px 24px rgba(255, 75, 125, 0.5);
+    }
 
-        .search-btn:active {
-            transform: translateY(-50%) scale(0.98);
-        }
+    .search-btn:active { transform: translateY(-50%) scale(0.98); }
 
-        /* Suggestions dropdown */
-        .suggestions {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            right: 0;
-            background: rgba(20, 20, 30, 0.95);
-            border-radius: 12px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-height: 280px;
-            overflow-y: auto;
-            display: none;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-            z-index: 10;
-        }
+    .suggestions {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0; right: 0;
+      background: rgba(20, 20, 30, 0.95);
+      border-radius: 12px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      max-height: 280px;
+      overflow-y: auto;
+      display: none;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      z-index: 10;
+    }
 
-        .suggestion-item {
-            padding: 12px 20px;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: background 0.2s;
-            font-size: 14px;
-        }
+    .suggestion-item {
+      padding: 12px 20px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background 0.2s;
+      font-size: 14px;
+    }
 
-        .suggestion-item:last-child {
-            border-bottom: none;
-        }
+    .suggestion-item:last-child { border-bottom: none; }
+    .suggestion-item:hover { background: rgba(255, 255, 255, 0.05); }
 
-        .suggestion-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
+    .actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-        /* Action buttons */
-        .actions {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+    .btn {
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+    }
 
-        .btn {
-            padding: 14px 32px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            font-family: 'Inter', sans-serif;
-        }
+    .btn-primary {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
 
-        .btn-primary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            backdrop-filter: blur(10px);
-        }
+    .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
 
-        .btn-primary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.7);
+    }
 
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.7);
-        }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      transform: translateY(-2px);
+    }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-            transform: translateY(-2px);
-        }
+    .footer {
+      position: absolute;
+      bottom: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+    }
 
-        /* Footer */
-        .footer {
-            position: absolute;
-            bottom: 24px;
-            text-align: center;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.4);
-        }
+    @media (max-width: 768px) {
+      body {
+        background-image: url(IMAGE/phone\ BG.jpeg);
+      }
 
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            body{
-                background-image: url(IMAGE/phone\ BG.jpeg);
-                
-            }
-            h1 {
-                font-size: 40px;
-            }
+      h1 { font-size: 40px; }
+      .subtitle { font-size: 16px; }
 
-            .subtitle {
-                font-size: 16px;
-            }
+      .logo {
+        width: 60px; height: 60px;
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
 
-            .logo {
-                width: 60px;
-                height: 60px;
-                font-size: 28px;
-                margin-bottom: 20px;
-            }
+      .search-btn {
+        position: relative;
+        right: auto; top: auto;
+        transform: none;
+        width: 100%;
+        margin-top: 8px;
+      }
 
-            .search-btn {
-                position: relative;
-                right: auto;
-                top: auto;
-                transform: none;
-                width: 100%;
-                margin-top: 8px;
-            }
+      .search-box { padding: 12px; }
 
-            .search-box {
-                padding: 12px;
-            }
+      .actions { flex-direction: column; width: 100%; }
+      .btn { width: 100%; }
+    }
 
-            .actions {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-
-        /* Scrollbar styling */
-        .suggestions::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .suggestions::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .suggestions::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-        }
-
-        .suggestions::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-    </style>
+    .suggestions::-webkit-scrollbar { width: 6px; }
+    .suggestions::-webkit-scrollbar-track { background: transparent; }
+    .suggestions::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+    .suggestions::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+  </style>
 </head>
 <body>
-    <div class="bg-wrapper"></div>
+  <div class="bg-wrapper"></div>
 
-    <div class="container">
-        <div class="hero">
-            <div class="logo">M</div>
-            <h1>Manhwa Library</h1>
-            <p class="subtitle">Your personal collection of epic stories</p>
+  <div class="container">
+    <div class="hero">
+      <div class="logo">M</div>
+      <h1>Manhwa Library</h1>
+      <p class="subtitle">Your personal collection of epic stories</p>
 
-            <div class="search-container">
-                <form onsubmit="handleSearch(event)">
-                    <div class="search-box">
-                        <input 
-                            type="text" 
-                            class="search-input" 
-                            id="searchInput"
-                            placeholder="Search your manhwa collection..."
-                            autocomplete="off"
-                            oninput="showSuggestions()"
-                        >
-                        <button type="submit" class="search-btn">Search</button>
-                    </div>
-                    <div class="suggestions" id="suggestions"></div>
-                </form>
-            </div>
+      <div class="search-container">
+        <form onsubmit="handleSearch(event)">
+          <div class="search-box">
+            <input 
+              type="text" 
+              class="search-input" 
+              id="searchInput"
+              placeholder="Search your manhwa collection..."
+              autocomplete="off"
+              oninput="showSuggestions()"
+            >
+            <button type="submit" class="search-btn">Search</button>
+          </div>
+          <div class="suggestions" id="suggestions"></div>
+        </form>
+      </div>
 
-            <div class="actions">
-                <a href="manhwa.html" class="btn btn-primary">Browse Library</a>
-                <a href="add-manhwa.html" class="btn btn-secondary">Add Manhwa</a>
-            </div>
-        </div>
-
-        <div class="footer">
-            Powered by localStorage • No account needed
-        </div>
+      <div class="actions">
+        <a href="manhwa.html" class="btn btn-primary">📚 Browse Library</a>
+        <a href="add-manhwa.html" class="btn btn-secondary">➕ Add Manhwa</a>
+      </div>
     </div>
 
-    <script>
-        const manhwas = JSON.parse(localStorage.getItem('manhwas')) || [];
+    <div class="footer">
+      Synced with Firebase ☁️ • No account needed
+    </div>
+  </div>
 
-        function showSuggestions() {
-            const input = document.getElementById('searchInput');
-            const suggestionsBox = document.getElementById('suggestions');
-            const searchTerm = input.value.toLowerCase().trim();
+  <script>
+    // Read from same key used by manhwa.html and add-manhwa.html
+    function getLibrary() {
+      return JSON.parse(localStorage.getItem('manhwaLibrary') || '[]');
+    }
 
-            if (searchTerm.length < 2) {
-                suggestionsBox.style.display = 'none';
-                return;
-            }
+    function showSuggestions() {
+      const input = document.getElementById('searchInput');
+      const suggestionsBox = document.getElementById('suggestions');
+      const searchTerm = input.value.toLowerCase().trim();
 
-            const filtered = manhwas
-                .filter(m => m.title.toLowerCase().includes(searchTerm))
-                .slice(0, 8);
+      if (searchTerm.length < 2) {
+        suggestionsBox.style.display = 'none';
+        return;
+      }
 
-            if (filtered.length === 0) {
-                suggestionsBox.style.display = 'none';
-                return;
-            }
+      const manhwas = getLibrary();
+      const filtered = manhwas
+        .filter(m => m.title.toLowerCase().includes(searchTerm))
+        .slice(0, 8);
 
-            suggestionsBox.innerHTML = filtered
-                .map(m => `<div class="suggestion-item" onclick="selectManhwa('${m.title.replace(/'/g, "\'")}')">${m.title}</div>`)
-                .join('');
+      if (filtered.length === 0) {
+        suggestionsBox.style.display = 'none';
+        return;
+      }
 
-            suggestionsBox.style.display = 'block';
-        }
+      suggestionsBox.innerHTML = filtered
+        .map(m => `<div class="suggestion-item" onclick="selectManhwa('${m.title.replace(/'/g, "\\'")}')">${m.title}</div>`)
+        .join('');
 
-        function selectManhwa(title) {
-            window.location.href = `manga.html?search=${encodeURIComponent(title)}`;
-        }
+      suggestionsBox.style.display = 'block';
+    }
 
-        function handleSearch(e) {
-            e.preventDefault();
-            const searchTerm = document.getElementById('searchInput').value.trim();
-            if (searchTerm) {
-                window.location.href = `manwha.html?search=${encodeURIComponent(searchTerm)}`;
-            } else {
-                window.location.href = 'manhwa.html';
-            }
-        }
+    function selectManhwa(title) {
+      window.location.href = `manhwa.html?search=${encodeURIComponent(title)}`;
+    }
 
-        // Close suggestions when clicking outside
-        document.addEventListener('click', (e) => {
-            const suggestionsBox = document.getElementById('suggestions');
-            const searchInput = document.getElementById('searchInput');
-            if (!suggestionsBox.contains(e.target) && e.target !== searchInput) {
-                suggestionsBox.style.display = 'none';
-            }
-        });
-    </script>
+    function handleSearch(e) {
+      e.preventDefault();
+      const searchTerm = document.getElementById('searchInput').value.trim();
+      if (searchTerm) {
+        window.location.href = `manhwa.html?search=${encodeURIComponent(searchTerm)}`;
+      } else {
+        window.location.href = 'manhwa.html';
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const suggestionsBox = document.getElementById('suggestions');
+      const searchInput = document.getElementById('searchInput');
+      if (!suggestionsBox.contains(e.target) && e.target !== searchInput) {
+        suggestionsBox.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
-
-
